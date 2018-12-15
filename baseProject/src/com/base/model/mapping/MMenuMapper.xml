@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.base.dao.MMenuMapper">
+  <resultMap id="BaseResultMap" type="com.base.model.MMenu">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="m_name" jdbcType="VARCHAR" property="mName" />
+    <result column="m_type" jdbcType="VARCHAR" property="mType" />
+    <result column="m_url" jdbcType="VARCHAR" property="mUrl" />
+    <result column="m_have_child" jdbcType="VARCHAR" property="mHaveChild" />
+    <result column="m_pid" jdbcType="VARCHAR" property="mPid" />
+    <result column="m_datalevel" jdbcType="VARCHAR" property="mDatalevel" />
+    <result column="m_sn" jdbcType="INTEGER" property="mSn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    uuid, m_name, m_type, m_url, m_have_child, m_pid, m_datalevel, m_sn
+  </sql>
+  <select id="selectByExample" parameterType="com.base.model.MMenuExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from m_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from m_menu
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from m_menu
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.base.model.MMenuExample">
+    delete from m_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.base.model.MMenu">
+    insert into m_menu (uuid, m_name, m_type, 
+      m_url, m_have_child, m_pid, 
+      m_datalevel, m_sn)
+    values (#{uuid,jdbcType=VARCHAR}, #{mName,jdbcType=VARCHAR}, #{mType,jdbcType=VARCHAR}, 
+      #{mUrl,jdbcType=VARCHAR}, #{mHaveChild,jdbcType=VARCHAR}, #{mPid,jdbcType=VARCHAR}, 
+      #{mDatalevel,jdbcType=VARCHAR}, #{mSn,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.base.model.MMenu">
+    insert into m_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="mName != null">
+        m_name,
+      </if>
+      <if test="mType != null">
+        m_type,
+      </if>
+      <if test="mUrl != null">
+        m_url,
+      </if>
+      <if test="mHaveChild != null">
+        m_have_child,
+      </if>
+      <if test="mPid != null">
+        m_pid,
+      </if>
+      <if test="mDatalevel != null">
+        m_datalevel,
+      </if>
+      <if test="mSn != null">
+        m_sn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="mName != null">
+        #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="mType != null">
+        #{mType,jdbcType=VARCHAR},
+      </if>
+      <if test="mUrl != null">
+        #{mUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mHaveChild != null">
+        #{mHaveChild,jdbcType=VARCHAR},
+      </if>
+      <if test="mPid != null">
+        #{mPid,jdbcType=VARCHAR},
+      </if>
+      <if test="mDatalevel != null">
+        #{mDatalevel,jdbcType=VARCHAR},
+      </if>
+      <if test="mSn != null">
+        #{mSn,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.base.model.MMenuExample" resultType="java.lang.Integer">
+    select count(*) from m_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update m_menu
+    <set>
+      <if test="record.uuid != null">
+        uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mName != null">
+        m_name = #{record.mName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mType != null">
+        m_type = #{record.mType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mUrl != null">
+        m_url = #{record.mUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mHaveChild != null">
+        m_have_child = #{record.mHaveChild,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mPid != null">
+        m_pid = #{record.mPid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mDatalevel != null">
+        m_datalevel = #{record.mDatalevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mSn != null">
+        m_sn = #{record.mSn,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update m_menu
+    set uuid = #{record.uuid,jdbcType=VARCHAR},
+      m_name = #{record.mName,jdbcType=VARCHAR},
+      m_type = #{record.mType,jdbcType=VARCHAR},
+      m_url = #{record.mUrl,jdbcType=VARCHAR},
+      m_have_child = #{record.mHaveChild,jdbcType=VARCHAR},
+      m_pid = #{record.mPid,jdbcType=VARCHAR},
+      m_datalevel = #{record.mDatalevel,jdbcType=VARCHAR},
+      m_sn = #{record.mSn,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.base.model.MMenu">
+    update m_menu
+    <set>
+      <if test="mName != null">
+        m_name = #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="mType != null">
+        m_type = #{mType,jdbcType=VARCHAR},
+      </if>
+      <if test="mUrl != null">
+        m_url = #{mUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mHaveChild != null">
+        m_have_child = #{mHaveChild,jdbcType=VARCHAR},
+      </if>
+      <if test="mPid != null">
+        m_pid = #{mPid,jdbcType=VARCHAR},
+      </if>
+      <if test="mDatalevel != null">
+        m_datalevel = #{mDatalevel,jdbcType=VARCHAR},
+      </if>
+      <if test="mSn != null">
+        m_sn = #{mSn,jdbcType=INTEGER},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.base.model.MMenu">
+    update m_menu
+    set m_name = #{mName,jdbcType=VARCHAR},
+      m_type = #{mType,jdbcType=VARCHAR},
+      m_url = #{mUrl,jdbcType=VARCHAR},
+      m_have_child = #{mHaveChild,jdbcType=VARCHAR},
+      m_pid = #{mPid,jdbcType=VARCHAR},
+      m_datalevel = #{mDatalevel,jdbcType=VARCHAR},
+      m_sn = #{mSn,jdbcType=INTEGER}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
