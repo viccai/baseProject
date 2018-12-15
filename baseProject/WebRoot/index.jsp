@@ -12,50 +12,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>welcome SEARCH</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-	<script src="<%=basePath%>js/jquery-1.9.1.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>platform/searchBar/css/search-form.css">
+	
+	<!--[if IE]>
+		<script src="http://libs.baidu.com/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
   </head>
   
-  <script type="text/javascript">
-  
-  function adduser() {
-
-		var username = $("#username").val();
-
-		$.ajax({
-			type : "POST",
-			dataType : "json",
-			async : false,
-			url : "<%=basePath%>user/addUser?username=" + username,
-			success : function(data) {
-				if (data.resultCode == -1) {
-					alert(data.resultMsg);
-				}
-				if (data.resultCode == 1) {
-					alert(data.resultMsg);
-				}
-			},
-			error : function(data) {
-				// 输出错误信息;
-				console.log(data.info);
-			}
-		});
-
-	}
   
   
-  </script>
-  
-  <body>
-    <input id="username" type="text" name="username" placeholder="请输入用户名" class="dtint" />
-    <input type="submit" value="添加用户" class="dtbtn" onclick="adduser()" />
-  </body>
+	<body>
+		<section class="container">
+			<form onsubmit="submitFn(this, event);">
+	            <div class="search-wrapper">
+	                <div class="input-holder">
+	                    <input type="text" class="search-input" placeholder="Type to search" />
+	                    <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+	                </div>
+	                <span class="close" onclick="searchToggle(this, event);"></span>
+	                <div class="result-container">
+	
+	                </div>
+	            </div>
+	        </form>
+		</section>
+		
+		<script src="<%=basePath%>platform/searchBar/js/jquery-1.11.0.min.js"></script>
+		<script>window.jQuery || document.write('<script src="<%=basePath%>platform/searchBar/js/jquery-1.11.0.min.js"><\/script>')</script>
+		<script type="text/javascript">
+	        function searchToggle(obj, evt){
+	            var container = $(obj).closest('.search-wrapper');
+	
+	            if(!container.hasClass('active')){
+	                  container.addClass('active');
+	                  evt.preventDefault();
+	            }
+	            else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
+	                  container.removeClass('active');
+	                  // clear input
+	                  container.find('.search-input').val('');
+	                  // clear and hide result container when we press close
+	                  container.find('.result-container').fadeOut(100, function(){$(this).empty();});
+	            }
+	        }
+	
+	        function submitFn(obj, evt){
+	            value = $(obj).find('.search-input').val().trim();
+	
+	            _html = "Yup yup! Your search text sounds like this: ";
+	            if(!value.length){
+	                _html = "Yup yup! Add some text friend :D";
+	            }
+	            else{
+	                _html += "<b>" + value + "</b>";
+	            }
+	
+	            $(obj).find('.result-container').html('<span>' + _html + '</span>');
+	            $(obj).find('.result-container').fadeIn(100);
+	
+	            evt.preventDefault();
+	        }
+	    </script>
+	</body>
 </html>

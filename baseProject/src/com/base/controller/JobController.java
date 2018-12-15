@@ -1,7 +1,5 @@
 package com.base.controller;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

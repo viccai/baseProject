@@ -7,30 +7,26 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.springframework.test.annotation.Rollback;
 
-import com.base.dao.UserMapper;
-import com.base.model.User;
-import com.base.service.IUserService;
-
 public class UsermapperTest extends BaseTest {
 	
 	/*@Resource
 	private UserMapper userMapper;*/
-	@Resource
-	private IUserService userService;
+	//@Resource
+	//private IUserService userService;
 	
 	/*@Test
 	@Rollback(false)
 	public void testAddUser(){
 		User user = new User();
 		user.setUuid(UUID.randomUUID().toString());
-		user.setUsername("ÀîËÄ");
+		user.setUsername("ï¿½ï¿½ï¿½ï¿½");
 		this.userMapper.insertSelective(user);
 	}*/
 	
-	@Test
+	/*@Test
 	@Rollback(false)
 	public void testAddUserRollback(){
-		String userName = "ÍõÎå";
+		String userName = "ï¿½ï¿½ï¿½ï¿½";
 		this.userService.testAddUserRollback(userName);
-	}
+	}*/
 }
